@@ -7,7 +7,7 @@
         SELECT * FROM user
     </select>
     <insert id="userInput" parameterType="dto.UserDTO" >
-    		insert into user values(#{user_id}, #{user_pwd}, #{user_name}, #{user_age}, #{user_gender})
+    		insert into user values(#{user_id}, #{pwd}, #{name}, #{age}, #{gender})
     </insert>
     
     <select id="userInfo" parameterType="String" resultType="dto.UserDTO">
