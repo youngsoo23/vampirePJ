@@ -12,11 +12,20 @@ import dto.UserDTO;
 
 @Service
 public class UserServiceImp implements UserService{
+	
 	@Inject
 	private UserDAO dao;
+	
 	@Override
 	public List<UserDTO> selectUser() throws Exception {
-		// TODO Auto-generated method stub
 		return dao.select();
+	}
+	@Override
+	public void userInsertMethod(UserDTO userInfo) {
+		dao.userInsertMethod(userInfo);
+	}
+	@Override
+	public UserDTO getUserInfo(String user_id) {
+		return dao.getUserInfo(user_id);
 	}
 }

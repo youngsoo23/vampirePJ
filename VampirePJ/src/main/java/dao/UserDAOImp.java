@@ -14,11 +14,20 @@ public class UserDAOImp implements UserDAO {
 	@Inject
 	private SqlSession sqlSession;
 
-	
-
 	@Override
 	public List<UserDTO> select() throws Exception {
-		// TODO Auto-generated method stub
 		 return sqlSession.selectList("user.selectUser");
 	}
+
+	@Override
+	public void userInsertMethod(UserDTO userInfo) {
+		sqlSession.insert("user.userInput", userInfo);
+	}
+
+	@Override
+	public UserDTO getUserInfo(String user_id) {
+		return sqlSession.selectOne("user.userInfo",user_id);
+	}
+	
+	
 }
