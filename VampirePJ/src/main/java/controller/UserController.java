@@ -1,6 +1,7 @@
 package controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.BloodPressureDTO;
 import dto.UserDTO;
 import service.UserService;
 
@@ -17,13 +19,8 @@ public class UserController {
 	private UserService user;
 
 	@RequestMapping("/Main")
-	public String select() throws Exception {
-		return "index";
-	}
-
-	@RequestMapping("/signUp.do")
-	public String signUpPage() {
-		return "signUp";
+	public String Main() throws Exception {
+		return "login";
 	}
 
 	@RequestMapping("/login.do")
@@ -36,6 +33,17 @@ public class UserController {
 		return "register";
 	}
 
+	@RequestMapping("/logout.do")
+	public String logoutMethod(HttpSession session) {
+		session.invalidate();
+		return "login";
+	}
+	
+	@RequestMapping("/record.do")
+	public String inputPressureMethod() {
+		return "record";
+	}
+	
 	@RequestMapping(value = "/userInsert.do", method = RequestMethod.POST)
 	public ModelAndView signUp(UserDTO userInfo, ModelAndView mav, HttpSession session) {
 		user.userInsertMethod(userInfo);
@@ -53,13 +61,13 @@ public class UserController {
 		UserDTO userDTO = new UserDTO();
 		if(session.getAttribute("user_id") != null) {
 			session.setAttribute("user_id", user_id);
-			System.out.println("hello");
 		}else {
 			session.setAttribute("user_id", user_id);
 		}
 		userDTO = user.getUserInfo(user_id);
 		if (userDTO != null) {
 			mav.addObject("userDTO", userDTO);
+			session.setAttribute("name", userDTO.getName());
 			mav.setViewName("index");
 		} else {
 			mav.setViewName("login");
@@ -73,22 +81,18 @@ public class UserController {
 		if( user_id != null) {
 			userDTO = user.getUserInfo(user_id);
 			mav.addObject("userDTO", userDTO);
+			session.setAttribute("name", userDTO.getName());
 			mav.setViewName("index");
 		}else {
 			mav.setViewName("login");
 		}
 		return mav;
 	}
-
-	@RequestMapping("/logout.do")
-	public String logoutMethod(HttpSession session) {
-		session.invalidate();
-		return "login";
-	}
-
-	@RequestMapping("/charts.do")
-	public String showChartMethod() {
-		return "charts";
+	@RequestMapping(value ="/insertRecord.do", method = RequestMethod.POST)
+	public ModelAndView insertRecordMethod(ModelAndView mav, HttpSession session, BloodPressureDTO bpDTO ) {
+		user.insertRecordMethod(bpDTO);
+		mav.setViewName("index");
+		return mav;
 	}
 
 }

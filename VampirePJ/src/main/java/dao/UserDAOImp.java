@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import dto.BloodPressureDTO;
 import dto.UserDTO;
 
 @Repository
@@ -27,6 +28,11 @@ public class UserDAOImp implements UserDAO {
 	@Override
 	public UserDTO getUserInfo(String user_id) {
 		return sqlSession.selectOne("user.userInfo",user_id);
+	}
+
+	@Override
+	public void insertRecordMethod(BloodPressureDTO bpDTO) {
+		sqlSession.insert("user.insertRecord", bpDTO);
 	}
 	
 	

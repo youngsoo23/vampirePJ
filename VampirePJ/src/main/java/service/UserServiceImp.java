@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.UserDAO;
+import dto.BloodPressureDTO;
 import dto.UserDTO;
 
 @Service
@@ -27,5 +28,9 @@ public class UserServiceImp implements UserService{
 	@Override
 	public UserDTO getUserInfo(String user_id) {
 		return dao.getUserInfo(user_id);
+	}
+	@Override
+	public void insertRecordMethod(BloodPressureDTO bpDTO) {
+		 dao.insertRecordMethod(bpDTO);
 	}
 }
