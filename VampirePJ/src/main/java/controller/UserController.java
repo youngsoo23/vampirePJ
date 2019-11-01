@@ -18,13 +18,11 @@ public class UserController {
 	
 	@RequestMapping("/Main")
 	public String select() throws Exception{
-		System.out.println(user.selectUser().size());
 		return "index";
 	}
 	
 	@RequestMapping("/signUp.do")
 	public String signUpPage() {
-		System.out.println("hello");
 		return "signUp";
 	}
 	
@@ -45,7 +43,6 @@ public class UserController {
 		userDTO = user.getUserInfo(userInfo.getUser_id());
 		session.setAttribute("user_id", userInfo.getUser_id());
 		session.setAttribute("name", userDTO.getName());
-		System.out.println(userDTO.getName());
 		mav.addObject("userDTO", userDTO);
 		mav.setViewName("index");
 		return mav;
@@ -55,7 +52,6 @@ public class UserController {
 	public ModelAndView welecome(ModelAndView mav, String user_id) {
 		UserDTO userDTO = new UserDTO();
 		userDTO = user.getUserInfo(user_id);
-		System.out.println(user_id);
 		if(userDTO != null) {
 			mav.addObject("userDTO", userDTO);
 			mav.setViewName("userInfo");
