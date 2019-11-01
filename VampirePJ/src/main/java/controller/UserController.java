@@ -15,28 +15,28 @@ import service.UserService;
 public class UserController {
 	@Inject
 	private UserService user;
-	
+
 	@RequestMapping("/Main")
-	public String select() throws Exception{
+	public String select() throws Exception {
 		return "index";
 	}
-	
+
 	@RequestMapping("/signUp.do")
 	public String signUpPage() {
 		return "signUp";
 	}
-	
+
 	@RequestMapping("/login.do")
 	public String loginPage() {
-		return  "login";
+		return "login";
 	}
-	
+
 	@RequestMapping("/register.do")
 	public String registerPage() {
-		return  "register";
+		return "register";
 	}
-	
-	@RequestMapping(value="/userInsert.do", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/userInsert.do", method = RequestMethod.POST)
 	public ModelAndView signUp(UserDTO userInfo, ModelAndView mav, HttpSession session) {
 		user.userInsertMethod(userInfo);
 		UserDTO userDTO = new UserDTO();
@@ -47,18 +47,48 @@ public class UserController {
 		mav.setViewName("index");
 		return mav;
 	}
-	
-	@RequestMapping(value="/getUserInfo.do", method=RequestMethod.POST)
-	public ModelAndView welecome(ModelAndView mav, String user_id) {
+
+	@RequestMapping(value = "/getUserInfo.do", method = RequestMethod.POST )
+	public ModelAndView welecomePost(ModelAndView mav, String user_id, HttpSession session) {
 		UserDTO userDTO = new UserDTO();
-		userDTO = user.getUserInfo(user_id);
-		if(userDTO != null) {
-			mav.addObject("userDTO", userDTO);
-			mav.setViewName("userInfo");
+		if(session.getAttribute("user_id") != null) {
+			session.setAttribute("user_id", user_id);
+			System.out.println("hello");
+		}else {
+			session.setAttribute("user_id", user_id);
 		}
-		else {
+		userDTO = user.getUserInfo(user_id);
+		if (userDTO != null) {
+			mav.addObject("userDTO", userDTO);
+			mav.setViewName("index");
+		} else {
 			mav.setViewName("login");
 		}
 		return mav;
 	}
+	@RequestMapping(value = "/getUserInfo.do", method = RequestMethod.GET )
+	public ModelAndView welecomeGet(ModelAndView mav, HttpSession session) {
+		UserDTO userDTO = new UserDTO();
+		String user_id = (String) session.getAttribute("user_id");
+		if( user_id != null) {
+			userDTO = user.getUserInfo(user_id);
+			mav.addObject("userDTO", userDTO);
+			mav.setViewName("index");
+		}else {
+			mav.setViewName("login");
+		}
+		return mav;
+	}
+
+	@RequestMapping("/logout.do")
+	public String logoutMethod(HttpSession session) {
+		session.invalidate();
+		return "login";
+	}
+
+	@RequestMapping("/charts.do")
+	public String showChartMethod() {
+		return "charts";
+	}
+
 }
