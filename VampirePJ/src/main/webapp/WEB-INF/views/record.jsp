@@ -58,7 +58,7 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="Record.do">
+        <a class="nav-link" href="record.do">
           <i class="fas fa-fw fa-table"></i>
           <span>Record</span></a>
       </li>
