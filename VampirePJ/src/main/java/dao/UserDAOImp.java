@@ -35,5 +35,9 @@ public class UserDAOImp implements UserDAO {
 		sqlSession.insert("user.insertRecord", bpDTO);
 	}
 	
-	
+	@Override
+	public List<BloodPressureDTO> userRecord(String user_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("user.userRecord", user_id);
+	}
 }
