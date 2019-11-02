@@ -17,4 +17,8 @@
     <insert id="insertRecord" parameterType="dto.BloodPressureDTO">
     		insert into bloodpressure(sys,dia,p,user_id) values(#{sys},${dia},#{p},#{user_id})
     </insert>
+    
+    <select id="userRecord" parameterType="String" resultType="dto.BloodPressureDTO">
+    	select * from bloodpressure where user_id = #{user_id}
+    </select>
 </mapper>

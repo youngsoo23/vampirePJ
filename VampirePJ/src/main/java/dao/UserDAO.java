@@ -10,4 +10,5 @@ public interface UserDAO {
 	public void userInsertMethod(UserDTO userInfo);
 	public UserDTO getUserInfo(String user_id);
 	public void insertRecordMethod(BloodPressureDTO bpDTO);
+	public List<BloodPressureDTO> userRecord(String user_id);
 }
