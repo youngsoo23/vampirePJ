@@ -113,7 +113,7 @@
 									Password?</a>
 							</div>
 							<div class="text-center">
-								<a class="small" href="login.html">Already have an account?
+								<a class="small" href="login.do">Already have an account?
 									Login!</a>
 							</div>
 						</div>
