@@ -33,4 +33,10 @@ public class UserServiceImp implements UserService{
 	public void insertRecordMethod(BloodPressureDTO bpDTO) {
 		 dao.insertRecordMethod(bpDTO);
 	}
+	
+	@Override
+	public List<BloodPressureDTO> userRecord(String user_id) {
+		// TODO Auto-generated method stub
+		return dao.userRecord(user_id);
+	}
 }
