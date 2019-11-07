@@ -537,6 +537,7 @@
   <!-- <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script> -->
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  
   <script type="text/babel">
   	class RecordList extends React.Component{  			
 		render(){
@@ -566,6 +567,7 @@
 			);
 		}
 	}
+
   	$.ajax({
   		url:"recordList",
   		method: "POST",
